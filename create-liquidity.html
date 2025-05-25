@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark"> <!-- Set to dark mode -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Liquidity - AetherMint</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <div class="floating-shapes">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <header>
+        <div class="container">
+             <a href="index.html" class="logo">
+                <img src="images/sol.png" alt="AetherMint Logo" id="sol.png">
+                AetherMint
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="create-token.html" class="nav-link"><i data-feather="edit-3"></i> Create Token</a></li>
+                    <li><a href="create-liquidity.html" class="nav-link active"><i data-feather="droplet"></i> Add Liquidity</a></li>
+                    <li><a href="trending-coins.html" class="nav-link"><i data-feather="trending-up"></i> Trending Coins <span class="new-badge">NEW</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="liquidity-manager" class="content-section active fade-in-section">
+            <div class="container">
+                <h1>Create <span class="highlight">Raydium</span> Liquidity Pool</h1>
+                <!-- UPDATED COST HERE -->
+                <p class="subtitle">Boost your token's trading potential by adding liquidity on Raydium. (Service Cost: 0.2 SOL)</p>
+                
+                <div class="card-style">
+                    <h3>New Liquidity Pool</h3>
+                    <div class="form-group">
+                        <label for="lpTokenSelect">Select Your Token</label>
+                        <select id="lpTokenSelect" name="lpTokenSelect">
+                            <option value="">-- Choose your token --</option>
+                        </select>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="baseTokenAmount">Amount of Your Token</label>
+                            <input type="number" id="baseTokenAmount" placeholder="e.g., 500,000,000">
+                        </div>
+                        <div class="form-group">
+                            <label for="quoteTokenAmount">Amount of SOL (or other quote token)</label>
+                            <input type="number" id="quoteTokenAmount" placeholder="e.g., 10 SOL" value="1">
+                        </div>
+                    </div>
+                     <button class="btn btn-primary" id="createLpButton"><i data-feather="plus-circle"></i> Create Pool & Fund</button>
+                </div>
+
+                <h3>Your Raydium Pools</h3>
+                <div class="pools-list card-style" id="userLiquidityPoolsList" style="margin-top:20px;">
+                    <div class="empty-state" id="lp-empty-state">
+                        <i data-feather="info"></i>
+                        <p>No active liquidity pools found for your tokens.</p>
+                        <p>Create one above to get started!</p>
+                    </div>
+                </div>
+                 <button class="btn btn-secondary" id="refreshPoolsButton" style="margin-top: 20px;"><i data-feather="refresh-cw"></i> Refresh List</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 AetherMint.fun | All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Payment Modal (Shared) -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="paymentModalCloseBtn">×</span>
+            <h3 id="paymentModalTitle"><i data-feather="shield"></i> Complete Payment</h3>
+             <!-- UPDATED DEFAULT COST HERE (JS will update it dynamically based on user input + service fee) -->
+            <p id="modalInfoText">To proceed, please send exactly <strong id="paymentAmount" class="highlight">0.2 SOL</strong> to the following Solana address:</p>
+            <div class="wallet-address-box">
+                <span id="paymentWalletAddress">YOUR_WALLET_ADDRESS_HERE_PLACEHOLDER</span>
+                <button id="copyAddressButton" title="Copy Address"><i data-feather="copy"></i></button>
+            </div>
+            <p class="small-text">Ensure you send the exact amount from a Solana wallet. Transactions are non-refundable.</p>
+            <div class="modal-actions">
+                <button id="cancelPaymentButton" class="btn btn-danger">Cancel</button>
+                <button id="confirmPaymentButton" class="btn btn-success"><i data-feather="check-circle"></i> I've Sent The SOL</button>
+            </div>
+            <div id="paymentStatus"></div>
+        </div>
+    </div>
+
+    <!-- Custom Confirmation Modal for Remove Liquidity -->
+    <div id="confirmRemoveLpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeConfirmRemoveLpModalBtn">×</span>
+            <h3 id="confirmRemoveLpModalTitle"><i data-feather="alert-triangle"></i> Confirm Removal</h3>
+            <p id="confirmRemoveLpModalMessage">Are you sure you want to remove this liquidity pool? This action is a simulation.</p>
+            <div class="modal-actions">
+                <button id="cancelRemoveLpButton" class="btn btn-secondary">Cancel</button>
+                <button id="confirmRemoveLpButtonAction" class="btn btn-danger"><i data-feather="trash-2"></i> Yes, Remove</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

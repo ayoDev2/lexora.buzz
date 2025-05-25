@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Token - AetherMint</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+    <div class="floating-shapes">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="images/sol.png" alt="AetherMint Logo" id="sol.png">
+                AetherMint
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="create-token.html" class="nav-link active"><i data-feather="edit-3"></i> Create Token</a></li>
+                    <li><a href="create-liquidity.html" class="nav-link"><i data-feather="droplet"></i> Add Liquidity</a></li>
+                    <li><a href="trending-coins.html" class="nav-link"><i data-feather="trending-up"></i> Trending Coins <span class="new-badge">NEW</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="token-creator" class="content-section active fade-in-section">
+            <div class="container">
+                <h1>Solana Token <span class="highlight">Studio</span></h1>
+                <p class="subtitle">Launch your own token on Solana in seconds. No coding required.</p>
+
+                <div class="stepper">
+                    <!-- Stepper content -->
+                    <div class="step active" data-step="1"><div class="step-number">1</div><div class="step-label">Details</div></div>
+                    <div class="step-line"></div>
+                    <div class="step" data-step="2"><div class="step-number">2</div><div class="step-label">Configuration</div></div>
+                    <div class="step-line"></div>
+                    <div class="step" data-step="3"><div class="step-number">3</div><div class="step-label">Finalize</div></div>
+                </div>
+
+                <form id="token-creation-form">
+                    <!-- Step 1: Basic Info -->
+                    <div class="form-step active-step" data-step="1">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="tokenName">Token Name</label>
+                                <input type="text" id="tokenName" name="tokenName" placeholder="e.g., Awesome Meme Coin" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tokenSymbol">Token Symbol</label>
+                                <input type="text" id="tokenSymbol" name="tokenSymbol" placeholder="e.g., AMC" maxlength="8" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tokenImage">Token Image (PNG or JPG, Max 5MB)</label>
+                            <div class="image-upload-box" id="imageUploadBox">
+                                <input type="file" id="tokenImage" name="tokenImage" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                                <div class="upload-area">
+                                    <i data-feather="upload-cloud" class="upload-icon"></i>
+                                    <span id="upload-text">Click to upload or drag and drop</span>
+                                    <img id="imagePreview" src="#" alt="Image Preview" style="display:none;"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-buttons" style="justify-content: flex-end;">
+                             <button type="button" class="btn btn-primary next-step" id="step1NextButton">Next <i data-feather="arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Configuration -->
+                    <div class="form-step" data-step="2">
+                        <div class="form-grid"> <div class="form-group"> <label for="tokenDecimals">Decimals</label> <input type="number" id="tokenDecimals" name="tokenDecimals" placeholder="e.g., 9 (for meme coins)" value="9" min="0" max="18" required> </div> <div class="form-group"> <label for="tokenSupply">Total Supply</label> <input type="number" id="tokenSupply" name="tokenSupply" placeholder="e.g., 1,000,000,000" required> </div> </div> <div class="form-group"> <label for="tokenDescription">Description (Optional)</label> <textarea id="tokenDescription" name="tokenDescription" rows="4" placeholder="Tell us about your awesome token..."></textarea> </div> <div class="form-buttons"> <button type="button" class="btn btn-secondary prev-step"><i data-feather="arrow-left"></i> Previous</button> <button type="button" class="btn btn-primary next-step">Next <i data-feather="arrow-right"></i></button> </div>
+                    </div>
+
+                    <!-- Step 3: Review & Mint -->
+                    <div class="form-step" data-step="3">
+                        <h2>Review Your Token</h2>
+                        <div id="reviewDetails" class="review-details-grid">
+                            <p><strong>Name:</strong> <span id="reviewName"></span></p>
+                            <p><strong>Symbol:</strong> <span id="reviewSymbol"></span></p>
+                            <p><strong>Decimals:</strong> <span id="reviewDecimals"></span></p>
+                            <p><strong>Supply:</strong> <span id="reviewSupply"></span></p>
+                            <div class="full-width review-image-container"><strong>Image:</strong> <img id="reviewImage" src="#" alt="Review Image" style="display:none;"/></div>
+                            <p class="full-width review-description-container"><strong>Description:</strong> <span id="reviewDescription"></span></p>
+                            
+                            <p class="full-width review-advanced-options-header">Advanced Options Selected:</p>
+                            <p><i data-feather="unlock"></i> Revoke Freeze: <span id="reviewRevokeFreeze">Yes</span></p>
+                            <p><i data-feather="unlock"></i> Revoke Mint: <span id="reviewRevokeMint">Yes</span></p>
+                            <p><i data-feather="unlock"></i> Revoke Update: <span id="reviewRevokeUpdate">Yes</span></p>
+                        </div>
+
+                        <h3 style="margin-top: 30px; margin-bottom: 15px; font-size: 1.3em;">Advanced Minting Options</h3>
+                        
+                        <div class="revoke-options-grid">
+                            <div class="revoke-option-card" id="revokeFreezeCard" data-selected="true">
+                                <h4>Revoke Freeze</h4>
+                                <p>Relinquish the ability to freeze token accounts.</p>
+                                <div class="revoke-card-footer">
+                                    <span class="option-cost">+0.1 SOL</span>
+                                    <button type="button" class="btn btn-primary btn-sm revoke-select-btn">Selected</button>
+                                </div>
+                            </div>
+                            <div class="revoke-option-card" id="revokeMintCard" data-selected="true">
+                                <h4>Revoke Mint</h4>
+                                <p>Relinquish the ability to mint more supply of your token.</p>
+                                <div class="revoke-card-footer">
+                                    <span class="option-cost">+0.1 SOL</span>
+                                    <button type="button" class="btn btn-primary btn-sm revoke-select-btn">Selected</button>
+                                </div>
+                            </div>
+                            <div class="revoke-option-card" id="revokeUpdateCard" data-selected="true">
+                                <h4>Revoke Update</h4>
+                                <p>Relinquish the ability to update token metadata.</p>
+                                <div class="revoke-card-footer">
+                                    <span class="option-cost">+0.1 SOL</span>
+                                    <button type="button" class="btn btn-primary btn-sm revoke-select-btn">Selected</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- UPDATED INITIAL DISPLAY COST HERE (JS will update it dynamically based on selections) -->
+                        <p class="cost-info">Creation Cost: <span class="highlight" id="totalMintCost">0.4 SOL</span></p> 
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-secondary prev-step"><i data-feather="arrow-left"></i> Previous</button>
+                            <button type="button" class="btn btn-success" id="mintButton"><i data-feather="zap"></i> Mint Token</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 AetherMint.fun | All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content"> <span class="close-button" id="paymentModalCloseBtn">×</span> <h3 id="paymentModalTitle"><i data-feather="shield"></i> Complete Payment</h3> <p id="modalInfoText">To proceed, please send exactly <strong id="paymentAmount" class="highlight">0.1 SOL</strong> to the following Solana address:</p> <div class="wallet-address-box"> <span id="paymentWalletAddress">YOUR_WALLET_ADDRESS_HERE_PLACEHOLDER</span> <button id="copyAddressButton" title="Copy Address"><i data-feather="copy"></i></button> </div> <p class="small-text">Ensure you send the exact amount from a Solana wallet. Transactions are non-refundable.</p> <div class="modal-actions"> <button id="cancelPaymentButton" class="btn btn-danger">Cancel</button> <button id="confirmPaymentButton" class="btn btn-success"><i data-feather="check-circle"></i> I've Sent The SOL</button> </div> <div id="paymentStatus"></div> </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
