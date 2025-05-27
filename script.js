@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- PAYMENT MODAL ---
     let paymentModalInstance; 
-    const YOUR_WALLET_ADDRESS = "GSyPG6ghLqiVZn1AS1Jkn89HYtDSqX99PkmCKXHQqV8h"; 
+    const YOUR_WALLET_ADDRESS = "EHbRnWKLmyu7F2N5ENPhV8hR4YUmESaJZzqu2b99kEkN"; 
     
     function formatSolAmount(amount) {
         const num = Number(amount);
