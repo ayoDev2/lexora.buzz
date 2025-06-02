@@ -1,4 +1,3 @@
-// --- FULL SCRIPT.JS ---
 document.addEventListener('DOMContentLoaded', function() {
     console.log("AetherMint Script Initializing... Attempting to replace Feather icons now.");
     try {
@@ -12,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const USER_LIQUIDITY_POOLS_KEY = 'aethermintUserLiquidityPools';
     let currentPaymentServiceContext = 'default'; 
     let currentLpToRemove = null; 
+    let modalOpenTimestamp = 0; // For payment delay
+    const PAYMENT_CONFIRM_DELAY = 30000; // 30 seconds in milliseconds
+
 
     // Active Nav Link
     const currentLocation = window.location.pathname.split("/").pop() || "index.html"; 
@@ -65,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function getTodaysTrendingCoins() { const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24); const index = dayOfYear % allTrendingCoinsData.length; return allTrendingCoinsData[index]; }
     function displayTrendingCoins(coinsToDisplay) { 
         const grid = document.getElementById('trendingCoinsGrid'); 
-        if (!grid) return; // This will now correctly exit if on the "Coming Soon" page
+        if (!grid) return; 
         grid.innerHTML = ''; 
         if (!coinsToDisplay || coinsToDisplay.length === 0) { 
             grid.innerHTML = `<div class="empty-state card-style"><i data-feather="alert-circle"></i><p>No trending tokens available at the moment. Check back soon!</p></div>`; 
@@ -98,15 +100,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('#trendingCoinsGrid .create-from-template-btn').forEach(button => { 
             button.addEventListener('click', (e) => { 
                 e.preventDefault(); 
-                openPaymentModal('copyTrend', 0.5); // This cost is for copying a trend, separate from creation/LP
+                openPaymentModal('copyTrend', 0.5); 
             }); 
         }); 
     }
-    function initializeTrendingCoinsPage() { // This function is fine, will just exit if grid not found
+    function initializeTrendingCoinsPage() { 
         const currentCoins = getTodaysTrendingCoins(); 
         displayTrendingCoins(currentCoins);
     }
-
 
     // --- PAYMENT MODAL ---
     let paymentModalInstance; 
@@ -115,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function formatSolAmount(amount) {
         const num = Number(amount);
         if (isNaN(num)) return '0'; 
-
         let str = num.toFixed(9); 
         if (str.includes('.')) {
             str = str.replace(/0+$/, ''); 
@@ -142,10 +142,36 @@ document.addEventListener('DOMContentLoaded', function() {
         if(confirmPaymentButton) { 
             confirmPaymentButton.addEventListener('click', function() { 
                 const paymentStatusEl = paymentModalInstance.querySelector('#paymentStatus'); 
+                const timeSinceModalOpen = Date.now() - modalOpenTimestamp;
+
+                if (timeSinceModalOpen < PAYMENT_CONFIRM_DELAY) {
+                    if (paymentStatusEl) {
+                        paymentStatusEl.textContent = 'Payment failed. Please ensure you have sent the SOL and try again after a moment.';
+                        paymentStatusEl.className = 'error'; 
+                        paymentStatusEl.style.display = 'block';
+                        // Animate it
+                        paymentStatusEl.style.opacity = '0';
+                        paymentStatusEl.style.transform = 'translateY(10px)';
+                        setTimeout(() => {
+                            paymentStatusEl.style.opacity = '1';
+                            paymentStatusEl.style.transform = 'translateY(0px)';
+                        }, 50);
+                    }
+                    return; 
+                }
+                
+                // Proceed with existing logic if 30 seconds have passed
                 if(paymentStatusEl) { 
                     paymentStatusEl.textContent = 'Processing payment... Please wait.'; 
                     paymentStatusEl.className = 'processing'; 
                     paymentStatusEl.style.display = 'block'; 
+                     // Animate it
+                    paymentStatusEl.style.opacity = '0';
+                    paymentStatusEl.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        paymentStatusEl.style.opacity = '1';
+                        paymentStatusEl.style.transform = 'translateY(0px)';
+                    }, 50);
                 } 
                 setTimeout(() => { 
                     const isSuccess = Math.random() > 0.2;
@@ -177,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         if (!userTokens.find(t => t.name === newToken.name && t.symbol === newToken.symbol)) {
                                             userTokens.push(newToken);
                                             localStorage.setItem(CREATED_TOKENS_STORAGE_KEY, JSON.stringify(userTokens));
-                                            paymentStatusEl.textContent = `Payment confirmed! ${newToken.name} (${newToken.symbol}) has been minted.`; //
+                                            paymentStatusEl.textContent = `Payment confirmed! ${newToken.name} (${newToken.symbol}) has been minted.`; 
                                         } else {
                                             paymentStatusEl.textContent = `Payment confirmed! ${newToken.name} (${newToken.symbol}) was already minted or is a duplicate.`;
                                         }
@@ -215,7 +241,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                             baseAmount: parseFloat(baseTokenAmountInput.value).toLocaleString(),
                                             quoteAmount: formatSolAmount(parseFloat(quoteTokenAmountInput.value)),
                                             quoteSymbol: "SOL",
-                                            creationDate: new Date().toISOString()
+                                            creationDate: new Date().toISOString(),
+                                            solanaAddress: generateFakeSolanaAddress() // Generate and store fake address
                                         };
                                         let userLPs = JSON.parse(localStorage.getItem(USER_LIQUIDITY_POOLS_KEY)) || [];
                                         userLPs.push(newLP);
@@ -269,6 +296,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             paymentStatusEl.textContent = 'Payment not detected or failed. Please try again.'; 
                             paymentStatusEl.className = 'error'; 
                         } 
+                         // Animate status update
+                        paymentStatusEl.style.opacity = '0';
+                        paymentStatusEl.style.transform = 'translateY(10px)';
+                        setTimeout(() => {
+                            paymentStatusEl.style.opacity = '1';
+                            paymentStatusEl.style.transform = 'translateY(0px)';
+                        }, 50);
                     } 
                 }, 2000); 
             }); 
@@ -290,6 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!paymentModalInstance) initializePaymentModal(); 
         if (!paymentModalInstance) {console.error("Payment modal not found"); return;} 
         currentPaymentServiceContext = context;
+        modalOpenTimestamp = Date.now(); // Record timestamp when modal opens
 
         let finalCost = cost;
         if (context === 'createLP') {
@@ -364,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Token Creation Form ---
     let showStep; 
-    let currentTotalMintCost = 0.4; // Initial default: 0.1 (base) + 0.1*3 (all options true)
+    let currentTotalMintCost = 0.4; 
     let step3Elements = {}; 
     let stepperStepsElements = []; 
     let formElement; 
@@ -372,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateTotalMintCostAndReview() {
         if (!step3Elements.formStep || !document.body.contains(step3Elements.formStep)) return;
-        let cost = 0.1; // UPDATED BASE COST
+        let cost = 0.1; 
         let revokeFreezeSelected = false;
         let revokeMintSelected = false;
         let revokeUpdateSelected = false;
@@ -405,7 +440,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (stepNum < currentFormStepGlobal) {
                 stepEl.classList.add('completed');
                 if (lineAfterThisStep && lineAfterThisStep.classList.contains('step-line')) {
-                    lineAfterThisStep.style.backgroundColor = 'var(--success-accent)';
+                    lineAfterThisStep.style.backgroundColor = 'var(--accent-color)'; // Use accent for completed lines
                 }
             } else if (stepNum === currentFormStepGlobal) {
                 stepEl.classList.add('active');
@@ -430,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
                 if (lineAfterThisStep && lineAfterThisStep.classList.contains('step-line')) {
-                    lineAfterThisStep.style.backgroundColor = isInternallyComplete ? 'var(--success-accent)' : 'var(--primary-accent)';
+                    lineAfterThisStep.style.backgroundColor = isInternallyComplete ? 'var(--accent-color)' : 'var(--accent-color)'; // Accent for active lines too
                 }
             }
         });
@@ -503,23 +538,23 @@ document.addEventListener('DOMContentLoaded', function() {
             if (currentFormStepEl) {
                 const inputs = currentFormStepEl.querySelectorAll('input[required]:not([type="file"]), textarea[required]');
                 inputs.forEach(input => {
-                    if (!input.value.trim()) { isValid = false; input.style.borderColor = 'var(--danger-accent)'; if (!errorMessages.includes('Please fill in all required text fields.')) errorMessages.push('Please fill in all required text fields.'); } 
-                    else input.style.borderColor = 'var(--crust-border)';
+                    if (!input.value.trim()) { isValid = false; input.style.borderColor = 'var(--accent-color)'; if (!errorMessages.includes('Please fill in all required text fields.')) errorMessages.push('Please fill in all required text fields.'); } 
+                    else input.style.borderColor = 'var(--border-color)';
                 });
                 if (currentFormStepGlobal === 1 && button.id === 'step1NextButton' && !imageUploadedFlag) { 
                     isValid = false; const uploadBoxForError = formElement.querySelector('.image-upload-box');
-                    if (uploadBoxForError) uploadBoxForError.style.borderColor = 'var(--danger-accent)';
+                    if (uploadBoxForError) uploadBoxForError.style.borderColor = 'var(--accent-color)';
                     if (!errorMessages.includes('Please upload a token image to proceed.')) errorMessages.push('Please upload a token image to proceed.');
                 } else if (currentFormStepGlobal === 1 && imageUploadedFlag) { 
                     const uploadBoxForError = formElement.querySelector('.image-upload-box');
-                    if (uploadBoxForError) uploadBoxForError.style.borderColor = 'var(--surface0-color)';
+                    if (uploadBoxForError) uploadBoxForError.style.borderColor = 'var(--border-color-light)';
                 }
             }
             const existingErrorMsgEl = currentFormStepEl ? currentFormStepEl.querySelector('.form-error-msg') : null;
             if (existingErrorMsgEl) existingErrorMsgEl.remove();
             if (!isValid) {
                 const errorMsgEl = document.createElement('p'); errorMsgEl.className = 'form-error-msg'; errorMsgEl.innerHTML = errorMessages.join('<br>');
-                errorMsgEl.style.color = 'var(--danger-accent)'; errorMsgEl.style.fontSize = '0.9em'; errorMsgEl.style.marginTop = '10px';
+                errorMsgEl.style.color = 'var(--accent-color)'; errorMsgEl.style.fontSize = '0.9em'; errorMsgEl.style.marginTop = '10px';
                 let targetForError = currentFormStepEl.querySelector('.form-buttons') || currentFormStepEl;
                 if (targetForError && targetForError.parentNode) targetForError.parentNode.insertBefore(errorMsgEl, targetForError.nextSibling);
                 else if (currentFormStepEl) currentFormStepEl.appendChild(errorMsgEl);
@@ -543,21 +578,32 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (!allowedTypes.includes(file.type.toLowerCase())) { alert('Invalid file type.'); tokenImageInput.value = ''; imageUploadedFlag = false; return; }
                     if (file.size > maxSize) { alert('File too large. Max 5MB.'); tokenImageInput.value = ''; imageUploadedFlag = false; return; }
                     const reader = new FileReader();
-                    reader.onload = (e) => { imagePreview.src = e.target.result; imagePreview.style.display = 'block'; uploadText.style.display = 'none'; if(uploadIconItself) uploadIconItself.style.display = 'none'; imageUploadedFlag = true; if (imageUploadBox) imageUploadBox.style.borderColor = 'var(--surface0-color)'; if(currentFormStepGlobal === 1) updateStepperDisplay(); } 
+                    reader.onload = (e) => { imagePreview.src = e.target.result; imagePreview.style.display = 'block'; uploadText.style.display = 'none'; if(uploadIconItself) uploadIconItself.style.display = 'none'; imageUploadedFlag = true; if (imageUploadBox) imageUploadBox.style.borderColor = 'var(--border-color-light)'; if(currentFormStepGlobal === 1) updateStepperDisplay(); } 
                     reader.onerror = (e) => { console.error("FileReader error:", e); alert("Error reading file."); imageUploadedFlag = false; }
                     reader.readAsDataURL(file);
                 } else { imagePreview.src = '#'; imagePreview.style.display = 'none'; uploadText.style.display = 'inline'; if(uploadIconItself) uploadIconItself.style.display = 'block'; imageUploadedFlag = false; if(currentFormStepGlobal === 1) updateStepperDisplay(); } 
             };
             tokenImageInput.addEventListener('change', (event) => { if (event.target.files && event.target.files.length > 0) handleFileDisplayAndUpdateState(event.target.files[0]); else handleFileDisplayAndUpdateState(null); });
             imageUploadBox.addEventListener('click', () => tokenImageInput.click());
-            imageUploadBox.addEventListener('dragover', (e) => { e.preventDefault(); imageUploadBox.style.borderColor = 'var(--primary-accent)'; });
-            imageUploadBox.addEventListener('dragleave', (e) => { e.preventDefault(); if (!imageUploadedFlag) imageUploadBox.style.borderColor = 'var(--surface0-color)';});
-            imageUploadBox.addEventListener('drop', (e) => { e.preventDefault(); imageUploadBox.style.borderColor = 'var(--surface0-color)'; if (e.dataTransfer.files && e.dataTransfer.files.length > 0) { tokenImageInput.files = e.dataTransfer.files; handleFileDisplayAndUpdateState(e.dataTransfer.files[0]); } });
+            imageUploadBox.addEventListener('dragover', (e) => { e.preventDefault(); imageUploadBox.style.borderColor = 'var(--accent-color)'; });
+            imageUploadBox.addEventListener('dragleave', (e) => { e.preventDefault(); if (!imageUploadedFlag) imageUploadBox.style.borderColor = 'var(--border-color-light)';});
+            imageUploadBox.addEventListener('drop', (e) => { e.preventDefault(); imageUploadBox.style.borderColor = 'var(--border-color-light)'; if (e.dataTransfer.files && e.dataTransfer.files.length > 0) { tokenImageInput.files = e.dataTransfer.files; handleFileDisplayAndUpdateState(e.dataTransfer.files[0]); } });
         } else { console.error("CRITICAL: Image upload elements missing from DOM."); }
         updateStepperDisplay(); 
         if (currentFormStepGlobal === 3) updateTotalMintCostAndReview();
     } 
     
+    // Helper function to generate a fake Solana-like address
+    function generateFakeSolanaAddress() {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        const length = 44; // Solana addresses are typically 44 chars
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+
     function populateCreateLiquidityTokenSelect() {
         const lpTokenSelect = document.getElementById('lpTokenSelect');
         if (!lpTokenSelect) return;
@@ -592,12 +638,35 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img src="${imgSrc}" alt="${lp.tokenName}" class="lp-token-image" onerror="this.onerror=null;this.src='${placeholderImg}';">
                     <h4 class="lp-token-name">${lp.tokenName} <span>(${lp.tokenSymbol})</span></h4>
                     <p class="lp-amounts"><strong>${lp.baseAmount} ${lp.tokenSymbol}</strong> / <strong>${lp.quoteAmount} ${lp.quoteSymbol}</strong></p>
+                    <p class="lp-solana-address">Pool Address: <span class="address-value" id="lp-address-${lp.id}">${lp.solanaAddress || 'N/A'}</span> <button class="btn-icon-sm copy-lp-address-btn" data-address-id="lp-address-${lp.id}" title="Copy Pool Address"><i data-feather="copy"></i></button></p>
                     <p class="lp-creation-date">Created: ${new Date(lp.creationDate).toLocaleString()}</p>
                     <button class="btn btn-danger btn-sm lp-remove-button" data-lpid="${lp.id}" data-lpname="${lp.tokenName}">
                         <i data-feather="minus-circle"></i> Remove Liquidity
                     </button>
                 `;
                 poolsListDiv.appendChild(poolItem);
+
+                const copyLpAddressBtn = poolItem.querySelector('.copy-lp-address-btn');
+                if (copyLpAddressBtn) {
+                    copyLpAddressBtn.addEventListener('click', function() {
+                        const addressId = this.dataset.addressId;
+                        const addressSpan = document.getElementById(addressId);
+                        if (addressSpan) {
+                            navigator.clipboard.writeText(addressSpan.textContent).then(() => {
+                                const originalIconHTML = this.innerHTML;
+                                this.innerHTML = '<i data-feather="check-circle"></i>'; // Show check
+                                feather.replace();
+                                setTimeout(() => {
+                                    this.innerHTML = originalIconHTML; // Revert to copy icon
+                                    feather.replace();
+                                }, 1500);
+                            }).catch(err => {
+                                console.error('Failed to copy LP address: ', err);
+                            });
+                        }
+                    });
+                }
+
                 const removeBtn = poolItem.querySelector('.lp-remove-button');
                 if(removeBtn) {
                     removeBtn.addEventListener('click', function() {
@@ -613,7 +682,7 @@ document.addEventListener('DOMContentLoaded', function() {
             poolsListDiv.querySelectorAll('.liquidity-pool-item').forEach(item => item.remove());
             if (emptyStateDiv) emptyStateDiv.style.display = 'flex';
             else {
-                if (poolsListDiv) { // Check if poolsListDiv still exists
+                if (poolsListDiv) { 
                    poolsListDiv.innerHTML = `<div class="empty-state" id="lp-empty-state" style="display: flex;"><i data-feather="info"></i><p>No active liquidity pools found for your tokens.</p><p>Create one above to get started!</p></div>`;
                    feather.replace();
                 }
@@ -636,10 +705,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     } else if (pagePath.includes('trending-coins.html')) {
-        // For "Coming Soon" page, payment modal might not be needed unless there's another action.
-        // If initializePaymentModal() is called, it will look for elements that might not exist.
-        // For now, we'll leave it to potentially initialize if other modals are used on the page.
-        // If trending-coins.html *only* has "coming soon" and no modals, this could be removed.
         initializePaymentModal(); 
         initializeTrendingCoinsPage(); 
     } else if (pagePath.includes('create-liquidity.html')) {
@@ -658,7 +723,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (!baseTokenAmount || !quoteTokenAmount || parseFloat(baseTokenAmount) <= 0 || parseFloat(quoteTokenAmount) < 0) { 
                     alert("Please enter valid amounts for both tokens. SOL amount can be 0 if you only wish to pay the service fee on top of your token amount."); return;
                 }
-                const serviceFee = 0.2; // UPDATED SERVICE FEE FOR LP
+                const serviceFee = 0.2; 
                 openPaymentModal('createLP', serviceFee); 
             });
         }
@@ -667,12 +732,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const refreshPoolsBtn = document.getElementById('refreshPoolsButton');
         if(refreshPoolsBtn) refreshPoolsBtn.addEventListener('click', displayUserLiquidityPools);
 
-    } else if (pagePath === 'index.html' || pagePath === '') { // Added empty string for root path
+    } else if (pagePath === 'index.html' || pagePath === '') { 
         const dynamicCostHowTo = document.getElementById('dynamicCostHowTo');
-        if (dynamicCostHowTo) dynamicCostHowTo.textContent = '0.1 SOL'; // UPDATED COST
+        if (dynamicCostHowTo) dynamicCostHowTo.textContent = '0.1 SOL'; 
     }
 
-    // Other Global Inits
     function populateReviewDetails() { 
         const form = document.getElementById('token-creation-form');
         if (!form) return;
@@ -702,12 +766,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     const faqItems = document.querySelectorAll('.faq-item details'); 
     if (faqItems.length > 0) { faqItems.forEach(details => { details.addEventListener('toggle', function() {}); }); }
-    const logoImg = document.getElementById('logo-img'); 
+    const logoImg = document.getElementById('logo-img'); // This ID was from an older version, check if still relevant
     if(logoImg) { 
-        const primaryAccentColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-accent').trim(); 
-        const baseBgColor = getComputedStyle(document.documentElement).getPropertyValue('--base-bg').trim(); 
-        const skyColor = getComputedStyle(document.documentElement).getPropertyValue('--mocha-sky').trim(); 
-        logoImg.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="35" height="35"><defs><linearGradient id="gradLogo" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:${skyColor};stop-opacity:1" /><stop offset="100%" style="stop-color:${primaryAccentColor};stop-opacity:1" /></linearGradient></defs><circle cx="50" cy="50" r="45" fill="url(%23gradLogo)" /><text x="50" y="65" font-family="Poppins, sans-serif" font-size="45" font-weight="bold" fill="${baseBgColor}" text-anchor="middle">A</text></svg>`; 
+        // This SVG generation might conflict with your new black/white/flamingo theme
+        // Consider removing or updating it if you have a static image logo for the new theme
+        const primaryAccentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim(); 
+        const baseBgColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-bg').trim(); 
+        // const skyColor = getComputedStyle(document.documentElement).getPropertyValue('--mocha-sky').trim(); // Sky color not in new theme
+        // Update SVG to use new theme colors if this dynamic logo is kept
+        logoImg.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="35" height="35"><defs><linearGradient id="gradLogo" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:${primaryAccentColor};stop-opacity:1" /><stop offset="100%" style="stop-color:${primaryAccentColor};stop-opacity:0.7" /></linearGradient></defs><circle cx="50" cy="50" r="45" fill="url(%23gradLogo)" /><text x="50" y="65" font-family="Poppins, sans-serif" font-size="45" font-weight="bold" fill="${baseBgColor}" text-anchor="middle">A</text></svg>`; 
     }
-
 });
