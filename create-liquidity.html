@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Liquidity - AetherMint</title>
+    <title>Add Liquidity - Lexora.buzz</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/feather-icons"></script>
@@ -17,16 +17,17 @@
     <header>
         <div class="container">
              <a href="index.html" class="logo">
-                <img src="images/sol.png" alt="AetherMint Logo" id="sol.png">
-                AetherMint
+                <img src="images/sol.png" alt="Lexora.buzz Logo" id="sol.png">
+                Lexora.buzz
             </a>
             <nav>
                 <ul>
-                    <li><a href="create-token.html" class="nav-link"><i data-feather="edit-3"></i> Create Token</a></li>
-                    <li><a href="create-liquidity.html" class="nav-link active"><i data-feather="droplet"></i> Add Liquidity</a></li>
-                    <li><a href="trending-coins.html" class="nav-link"><i data-feather="trending-up"></i> Trending Coins <span class="new-badge">NEW</span></a></li>
+                    <li><a href="create-token.html" class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg> Create Token</a></li>
+                    <li><a href="create-liquidity.html" class="nav-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-droplet"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg> Add Liquidity</a></li>
+                    <li><a href="promote-coins.html" class="nav-link active"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trending-up"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg> Promote Coins <span class="new-badge">NEW</span></a></li>
                 </ul>
             </nav>
+            
         </div>
     </header>
 
@@ -74,7 +75,7 @@
 
     <footer>
         <div class="container">
-            <p>© 2025 AetherMint.fun | All Rights Reserved.</p>
+            <p>© 2025 Lexora.buzz | All Rights Reserved.</p>
         </div>
     </footer>
     
@@ -89,7 +90,7 @@
                 <span id="paymentWalletAddress">YOUR_WALLET_ADDRESS_HERE_PLACEHOLDER</span>
                 <button id="copyAddressButton" title="Copy Address"><i data-feather="copy"></i></button>
             </div>
-            <p class="small-text">Ensure you send the exact amount from a Solana wallet. Transactions are non-refundable.</p>
+            <p class="small-text">Ensure you send the exact amount to the address above. Estimated time: 30 secs</p>
             <div class="modal-actions">
                 <button id="cancelPaymentButton" class="btn btn-danger">Cancel</button>
                 <button id="confirmPaymentButton" class="btn btn-success"><i data-feather="check-circle"></i> I've Sent The SOL</button>
@@ -103,7 +104,7 @@
         <div class="modal-content">
             <span class="close-button" id="closeConfirmRemoveLpModalBtn">×</span>
             <h3 id="confirmRemoveLpModalTitle"><i data-feather="alert-triangle"></i> Confirm Removal</h3>
-            <p id="confirmRemoveLpModalMessage">Are you sure you want to remove this liquidity pool? This action is a simulation.</p>
+            <p id="confirmRemoveLpModalMessage">Are you sure you want to remove this liquidity pool? .</p>
             <div class="modal-actions">
                 <button id="cancelRemoveLpButton" class="btn btn-secondary">Cancel</button>
                 <button id="confirmRemoveLpButtonAction" class="btn btn-danger"><i data-feather="trash-2"></i> Yes, Remove</button>

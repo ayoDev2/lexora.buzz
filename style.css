@@ -838,6 +838,22 @@ footer .disclaimer { font-size: 0.9em; margin-top: 10px; color: var(--tertiary-t
 }
 
 
+/* Loading Spinner for Payment Confirmation */
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid var(--accent-color); /* Use accent color for the spinner */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto; /* Center the spinner */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* Responsive Styles (Kept largely from original to maintain structure) */
 @media (max-width: 992px) { 
     .trending-coins-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } 
