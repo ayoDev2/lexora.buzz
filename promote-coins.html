@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MemeCoin Marketing - Promote Your Tokens</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+      /* Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        background: #000;
+        color: #fff;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* Floating Shapes Animation */
+      .floating-shapes {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .floating-shapes span {
+        position: absolute;
+        display: block;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        animation: animate 25s linear infinite;
+        bottom: -150px;
+      }
+
+      .floating-shapes span:nth-child(1) {
+        left: 25%;
+        width: 80px;
+        height: 80px;
+        animation-delay: 0s;
+      }
+
+      .floating-shapes span:nth-child(2) {
+        left: 10%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 2s;
+        animation-duration: 12s;
+      }
+
+      .floating-shapes span:nth-child(3) {
+        left: 70%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 4s;
+      }
+
+      .floating-shapes span:nth-child(4) {
+        left: 40%;
+        width: 60px;
+        height: 60px;
+        animation-delay: 0s;
+        animation-duration: 18s;
+      }
+
+      .floating-shapes span:nth-child(5) {
+        left: 65%;
+        width: 20px;
+        height: 20px;
+        animation-delay: 0s;
+      }
+
+      .floating-shapes span:nth-child(6) {
+        left: 75%;
+        width: 110px;
+        height: 110px;
+        animation-delay: 3s;
+      }
+
+      .floating-shapes span:nth-child(7) {
+        left: 35%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 7s;
+      }
+
+      .floating-shapes span:nth-child(8) {
+        left: 50%;
+        width: 25px;
+        height: 25px;
+        animation-delay: 15s;
+        animation-duration: 45s;
+      }
+
+      .floating-shapes span:nth-child(9) {
+        left: 20%;
+        width: 15px;
+        height: 15px;
+        animation-delay: 2s;
+        animation-duration: 35s;
+      }
+
+      .floating-shapes span:nth-child(10) {
+        left: 85%;
+        width: 150px;
+        height: 150px;
+        animation-delay: 0s;
+        animation-duration: 11s;
+      }
+
+      @keyframes animate {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+          border-radius: 0;
+        }
+        100% {
+          transform: translateY(-1000px) rotate(720deg);
+          opacity: 0;
+          border-radius: 50%;
+        }
+      }
+
+      /* Header Styles */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 1.25rem 0;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        z-index: 1000;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: inherit;
+        font-weight: 600;
+        font-size: 1.8em;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        position: relative;
+      }
+
+      .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: #fff;
+      }
+
+      .circle-1 {
+        width: 20px;
+        height: 20px;
+        top: 0;
+        left: 6px;
+      }
+
+      .circle-2 {
+        width: 16px;
+        height: 16px;
+        top: 8px;
+        left: 0;
+        opacity: 0.7;
+      }
+
+      .circle-3 {
+        width: 12px;
+        height: 12px;
+        top: 12px;
+        right: 0;
+        opacity: 0.4;
+      }
+
+      .nav-menu {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .nav-item:hover,
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+
+      .new-badge {
+        background: #fff;
+        color: #000;
+        font-size: 0.7rem;
+        font-weight: 700;
+        padding: 0.15rem 0.4rem;
+        border-radius: 0.25rem;
+        margin-left: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Main Layout */
+      .main-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 8rem 1rem 4rem;
+        position: relative;
+        z-index: 10;
+      }
+
+      .marketing-card {
+        width: 100%;
+        max-width: 500px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1rem;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+      }
+
+      /* Header */
+      .marketing-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .marketing-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0.5rem;
+      }
+
+      .highlight {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .marketing-subtitle {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.4;
+      }
+
+      /* Image Carousel */
+      .image-carousel {
+        position: relative;
+        margin-bottom: 2rem;
+        background: #000000;
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+
+      .carousel-container {
+        position: relative;
+        height: 200px;
+      }
+
+      .carousel-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .carousel-image.active {
+        opacity: 1;
+      }
+
+      .carousel-dots {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .dot.active {
+        background: #ffffff;
+        width: 16px;
+        border-radius: 8px;
+      }
+
+      /* Token Input */
+      .token-input-section {
+        margin-bottom: 2rem;
+      }
+
+      .token-address-input {
+        width: 100%;
+        padding: 0.875rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 0.5rem;
+        color: #ffffff;
+        font-size: 0.875rem;
+        transition: all 0.3s ease;
+        height: 48px;
+      }
+
+      .token-address-input:focus {
+        outline: none;
+        border-color: rgba(255, 255, 255, 0.5);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+      }
+
+      .token-address-input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      /* Marketing Services */
+      .marketing-services {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .service-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+      }
+
+      .service-card:hover {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .service-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .service-icon {
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+      }
+
+      .service-icon svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+
+      .service-details {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .service-name {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #ffffff;
+        margin-bottom: 0.125rem;
+      }
+
+      .service-price {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .service-buy-btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #ffffff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .service-buy-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+
+      /* Service specific colors */
+      .bg-twitter {
+        background: #1da1f2;
+      }
+      .bg-instagram {
+        background: linear-gradient(45deg, #833ab4, #fd1d1d, #f77737);
+      }
+      .bg-tiktok {
+        background: #000;
+      }
+      .bg-chinese {
+        background: #e6162d;
+      }
+
+      /* Footer */
+      .footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 2rem 0;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.6);
+        position: relative;
+        z-index: 10;
+      }
+
+      /* Modal */
+      .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        backdrop-filter: blur(10px);
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 1rem;
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+      }
+
+      .close-button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        transition: all 0.3s ease;
+        font-size: 1.5rem;
+      }
+
+      .close-button:hover {
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .modal-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #ffffff;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+
+      .modal-info {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .wallet-address-box {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        gap: 1rem;
+      }
+
+      .wallet-address {
+        flex: 1;
+        color: #ffffff;
+        font-family: monospace;
+        font-size: 0.9rem;
+        word-break: break-all;
+      }
+
+      .copy-button {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.25rem;
+        padding: 0.5rem;
+        color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .copy-button:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #ffffff;
+      }
+
+      .small-text {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.5rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .btn-success {
+        background: #22c55e;
+        color: #ffffff;
+      }
+
+      .btn-success:hover {
+        background: #16a34a;
+        transform: translateY(-2px);
+      }
+
+      .btn-danger {
+        background: #ef4444;
+        color: #ffffff;
+      }
+
+      .btn-danger:hover {
+        background: #dc2626;
+      }
+       /* Loading Spinner for Payment Confirmation */
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid var(--accent-color); /* Use accent color for the spinner */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto; /* Center the spinner */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .header-content {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .nav-menu {
+          gap: 1rem;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .main-content {
+          padding: 6rem 1rem 2rem;
+        }
+
+        .marketing-card {
+          padding: 1.5rem;
+        }
+
+        .marketing-title {
+          font-size: 1.125rem;
+        }
+
+        .service-card {
+          padding: 0.875rem;
+        }
+
+        .service-name {
+          font-size: 0.8rem;
+        }
+
+        .service-price {
+          font-size: 0.7rem;
+        }
+
+        .service-buy-btn {
+          padding: 0.4rem 0.8rem;
+          font-size: 0.8rem;
+        }
+
+        .modal-content {
+          margin: 1rem;
+          padding: 1.5rem;
+        }
+
+        .modal-actions {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .marketing-title {
+          font-size: 1rem;
+        }
+
+        .wallet-address-box {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      } 
+      #confirmation-message {
+        font-size: 18px;
+        color: #28a745;
+        margin-top: 10px;
+      }
+      
+
+      /* Hidden class for screen readers */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating Shapes Background -->
+    <div class="floating-shapes">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="index.html" class="logo">
+            <img src="images/sol.png" alt="Lexora.buzz Logo" id="sol.png" />
+            Lexora.buzz
+          </a>
+
+          <nav>
+            <ul>
+              <li>
+                <a href="create-token.html" class="nav-link"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-edit-3"
+                  >
+                    <path d="M12 20h9"></path>
+                    <path
+                      d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"
+                    ></path>
+                  </svg>
+                  Create Token</a
+                >
+              </li>
+              <li>
+                <a href="create-liquidity.html" class="nav-link"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-droplet"
+                  >
+                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                  </svg>
+                  Add Liquidity</a
+                >
+              </li>
+              <li>
+                <a href="promote-coins.html" class="nav-link active"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-trending-up"
+                  >
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                    <polyline points="17 6 23 6 23 12"></polyline>
+                  </svg>
+                  Promote Coins <span class="new-badge">NEW</span></a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="marketing-card fade-in-section is-visible">
+          <div class="marketing-header">
+            <h1 class="marketing-title">
+              Buy MemeCoin <span class="highlight">Marketing</span>
+            </h1>
+            <p class="marketing-subtitle">
+              Boost your token visibility — fake it 'til you make it 🌱
+            </p>
+          </div>
+
+          <!-- Image Carousel -->
+
+          <!-- Token Address Input -->
+          <div class="token-input-section">
+            <label for="tokenAddress" class="sr-only">Token address</label>
+            <input
+              id="tokenAddress"
+              type="text"
+              placeholder="Enter token address"
+              class="token-address-input"
+            />
+          </div>
+
+          <!-- Marketing Services -->
+          <div class="marketing-services">
+            <div class="service-card">
+              <div class="service-info">
+                <div class="service-icon bg-twitter">
+                  <svg viewBox="0 0 512 512">
+                    <path
+                      fill="currentColor"
+                      d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
+                    />
+                  </svg>
+                </div>
+                <div class="service-details">
+                  <div class="service-name">Twitter Marketing</div>
+                  <div class="service-price">0.25 SOL</div>
+                </div>
+              </div>
+              <button
+                class="service-buy-btn bg-twitter"
+                onclick="buyService('Twitter Marketing', '0.25')"
+              >
+                Buy Now
+              </button>
+            </div>
+
+            <div class="service-card">
+              <div class="service-info">
+                <div class="service-icon bg-instagram">
+                  <svg viewBox="0 0 448 512">
+                    <path
+                      fill="currentColor"
+                      d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                    />
+                  </svg>
+                </div>
+                <div class="service-details">
+                  <div class="service-name">Instagram Marketing</div>
+                  <div class="service-price">0.25 SOL</div>
+                </div>
+              </div>
+              <button
+                class="service-buy-btn bg-instagram"
+                onclick="buyService('Instagram Marketing', '0.25')"
+              >
+                Buy Now
+              </button>
+            </div>
+
+            <div class="service-card">
+              <div class="service-info">
+                <div class="service-icon bg-tiktok">
+                  <svg viewBox="0 0 448 512">
+                    <path
+                      fill="currentColor"
+                      d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"
+                    />
+                  </svg>
+                </div>
+                <div class="service-details">
+                  <div class="service-name">Tiktok Marketing</div>
+                  <div class="service-price">0.25 SOL</div>
+                </div>
+              </div>
+              <button
+                class="service-buy-btn bg-tiktok"
+                onclick="buyService('Tiktok Marketing', '0.25')"
+              >
+                Buy Now
+              </button>
+            </div>
+
+            <div class="service-card">
+              <div class="service-info">
+                <div class="service-icon bg-chinese">
+                  <svg viewBox="0 0 512 512">
+                    <path
+                      fill="currentColor"
+                      d="M407 177.6c7.6-24-13.4-46.8-37.4-41.7-22 4.8-28.8-28.1-7.1-32.8 50.1-10.9 92.3 37.1 76.5 84.8-6.8 21.2-38.8 10.8-32-10.3zM214.8 446.7C108.5 446.7 0 395.3 0 310.4c0-44.3 28-95.4 76.3-143.7C176 67 279.5 65.8 249.9 161c-4 13.1 12.3 5.7 12.3 6 79.5-33.6 140.5-16.8 114 51.4-3.7 9.4 1.1 10.9 8.3 13.1 135.7 42.3 34.8 215.2-169.7 215.2zm143.7-146.3c-5.4-55.7-78.5-94-163.4-85.7-84.8 8.6-148.8 60.3-143.4 116s78.5 94 163.4 85.7c84.8-8.6 148.8-60.3 143.4-116zM347.9 35.1c-25.9 5.6-16.8 43.7 8.3 38.3 72.3-15.2 134.8 52.8 111.7 124-7.4 24.2 29.1 37 37.4 12 31.9-99.8-55.1-195.9-157.4-174.3zm-78.5 311c-17.1 38.8-66.8 60-109.1 46.3-40.8-13.1-58-53.4-40.3-89.7 17.7-35.4 63.1-55.4 103.4-45.1 42 10.8 63.1 50.2 46 88.5zm-86.3-30c-12.9-5.4-30 .3-38 12.9-8.3 12.9-4.3 28 8.6 34 13.1 6 30.8.3 39.1-12.9 8-13.1 3.7-28.3-9.7-34zm32.6-13.4c-5.1-1.7-11.4.6-14.3 5.4-2.9 5.1-1.4 10.6 3.7 12.9 5.1 2 11.7-.3 14.6-5.4 2.8-5.2 1.1-10.9-4-12.9z"
+                    />
+                  </svg>
+                </div>
+                <div class="service-details">
+                  <div class="service-name">Chinese Social Media Marketing</div>
+                  <div class="service-price">0.4 SOL</div>
+                </div>
+              </div>
+              <button
+                class="service-buy-btn bg-chinese"
+                onclick="buyService('Chinese Social Media Marketing', '0.4')"
+              >
+                Buy Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>© 2025 Lexora.buzz | All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+      <div class="modal-content">
+        <button class="close-button" onclick="closeModal()">×</button>
+        <h3 class="modal-title">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          Complete Payment
+        </h3>
+        <p class="modal-info">
+          To purchase <strong id="selectedService"></strong>, please send
+          exactly
+          <strong id="paymentAmount" class="highlight"></strong>
+          to the following Solana address:
+        </p>
+        <div class="wallet-address-box">
+          <span class="wallet-address"
+            >78HCjqfLjn87cQYRhhMcYhhACEiTcWepZ6vYHCFR1ZLn</span
+          >
+          <button
+            class="copy-button"
+            onclick="copyAddress()"
+            title="Copy Address"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path
+                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+              ></path>
+            </svg>
+          </button>
+        </div>
+                <p class="small-text">
+            Ensure you send the exact amount to the address above. Estimated time: 30 secs
+        </p>
+        <!-- New Payment Status Area -->
+        <div id="paymentStatusArea" style="display: none; text-align: center; margin-top: 1.5rem;">
+            <div class="loading-spinner"></div>
+            <p id="paymentStatusMessage" style="margin-top: 1rem; font-size: 1.1rem; font-weight: 500;"></p>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-danger" onclick="closeModal()">Cancel</button>
+            <button class="btn btn-success" id="confirmPaymentBtn" onclick="confirmPayment()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                I've Sent The SOL
+            </button>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      // Global variables
+      let currentImageIndex = 1;
+      let selectedServiceName = "";
+      let selectedServicePrice = "";
+
+      // Image carousel functionality
+      function showImage(index) {
+        // Hide all images
+        const images = document.querySelectorAll(".carousel-image");
+        const dots = document.querySelectorAll(".dot");
+
+        images.forEach((img) => img.classList.remove("active"));
+        dots.forEach((dot) => dot.classList.remove("active"));
+
+        // Show selected image
+        document.getElementById(`image-${index}`).classList.add("active");
+        dots[index].classList.add("active");
+
+        currentImageIndex = index;
+      }
+
+      // Auto-rotate carousel
+      function autoRotateCarousel() {
+        currentImageIndex = (currentImageIndex + 1) % 4;
+        showImage(currentImageIndex);
+      }
+
+      // Start auto-rotation
+      setInterval(autoRotateCarousel, 5000);
+
+      // Service purchase functionality
+      function buyService(serviceName, price) {
+        const tokenAddress = document
+          .getElementById("tokenAddress")
+          .value.trim();
+
+        if (!tokenAddress) {
+          alert("Please enter a token address first");
+          return;
+        }
+
+        selectedServiceName = serviceName;
+        selectedServicePrice = price;
+
+        document.getElementById("selectedService").textContent = serviceName;
+        document.getElementById("paymentAmount").textContent = price + " SOL";
+        document.getElementById("paymentModal").classList.add("show");
+      }
+
+      // Modal functionality
+      function closeModal() {
+        document.getElementById("paymentModal").classList.remove("show");
+      }
+
+      function copyAddress() {
+        const address = "8NyFBUkCx35Biqde2GqiruJA91qwY1gD14bY8zQW9gA2";
+        navigator.clipboard
+          .writeText(address)
+          .then(() => {
+            alert("Address copied to clipboard!");
+          })
+          .catch(() => {
+            // Fallback for older browsers
+            const textArea = document.createElement("textarea");
+            textArea.value = address;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            alert("Address copied to clipboard!");
+          });
+      }
+
+      function confirmPayment() {
+        alert(`${selectedServiceName} service purchased successfully!`);
+        closeModal();
+        setTimeout(function() {
+  // Code to confirm the payment goes here
+}, 30000); // 30000 milliseconds = 30 seconds
+           }
+
+      // Close modal when clicking outside
+      document
+        .getElementById("paymentModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeModal();
+          }
+        });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeModal();
+        }
+      });
+
+      // Form validation
+      document
+        .getElementById("tokenAddress")
+        .addEventListener("input", function (e) {
+          const value = e.target.value;
+          // Basic Solana address validation (should be 32-44 characters)
+          if (value.length > 0 && (value.length < 32 || value.length > 44)) {
+            e.target.style.borderColor = "#ef4444";
+          } else {
+            e.target.style.borderColor = "rgba(255, 255, 255, 0.15)";
+          }
+        });
+
+      // Initialize page
+      document.addEventListener("DOMContentLoaded", function () {
+        // Set initial carousel state
+        showImage(1);
+
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              target.scrollIntoView({
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+      });
+    </script>
+     <script src="script.js"></script>
+  </body>
+</html>
+
+<!-- Auto-Confirm Payment Section -->
+<div id="payment-confirmation" class="payment-confirmation">
+  <div class="loading-animation" id="loading-animation"></div>
+  <p id="confirmation-message" style="display: none;">Payment Confirmed!</p>
+</div>
+    
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+      <div class="modal-content">
+        <button class="close-button" onclick="closeModal()">×</button>
+        <h3 class="modal-title">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          Complete Payment
+        </h3>
+        <p class="modal-info">
+          To purchase <strong id="selectedService"></strong>, please send
+          exactly
+          <strong id="paymentAmount" class="highlight"></strong>
+          to the following Solana address:
+        </p>
+        <div class="wallet-address-box">
+          <span class="wallet-address"
+            >78HCjqfLjn87cQYRhhMcYhhACEiTcWepZ6vYHCFR1ZLn</span
+          >
+          <button
+            class="copy-button"
+            onclick="copyAddress()"
+            title="Copy Address"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path
+                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <p class="small-text">
+          Ensure you send the exact amount to the address above. 
+        </p>
+        <div class="modal-actions">
+          <button class="btn btn-danger" onclick="closeModal()">Cancel</button>
+          <button class="btn btn-success" onclick="confirmPayment()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            I've Sent The SOL
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+     // Global variables
+let currentImageIndex = 1;
+let selectedServiceName = '';
+let selectedServicePrice = '';
+
+// Image carousel functionality
+function showImage(index) {
+    // Hide all images
+    const images = document.querySelectorAll('.carousel-image');
+    const dots = document.querySelectorAll('.dot');
+
+    images.forEach(img => img.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    // Show selected image
+    document.getElementById(`image-${index}`).classList.add('active');
+    dots[index].classList.add('active');
+
+    currentImageIndex = index;
+}
+
+// Auto-rotate carousel
+function autoRotateCarousel() {
+    currentImageIndex = (currentImageIndex + 1) % 4;
+    showImage(currentImageIndex);
+}
+
+// Start auto-rotation
+setInterval(autoRotateCarousel, 5000);
+
+// Service purchase functionality
+function buyService(serviceName, price) {
+    const tokenAddress = document.getElementById('tokenAddress').value.trim();
+
+    if (!tokenAddress) {
+        alert('Please enter a token address first');
+        return;
+    }
+
+    selectedServiceName = serviceName;
+    selectedServicePrice = price;
+
+    document.getElementById('selectedService').textContent = serviceName;
+    document.getElementById('paymentAmount').textContent = price + ' SOL';
+    document.getElementById('paymentModal').classList.add('show');
+    resetPaymentModal(); // Reset modal state when opening
+}
+
+// Modal functionality
+function closeModal() {
+    document.getElementById('paymentModal').classList.remove('show');
+    resetPaymentModal(); // Reset modal state when closing
+}
+
+function copyAddress() {
+    const address = '8NyFBUkCx35Biqde2GqiruJA91qwY1gD14bY8zQW9gA2';
+    navigator.clipboard.writeText(address).then(() => {
+        alert('Address copied to clipboard!');
+    }).catch(() => {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = address;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Address copied to clipboard!');
+    });
+}
+
+function confirmPayment() {
+    const confirmBtn = document.getElementById('confirmPaymentBtn');
+    const statusArea = document.getElementById('paymentStatusArea');
+    const statusMessage = document.getElementById('paymentStatusMessage');
+
+    // Disable the button to prevent multiple clicks
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = 'Processing...';
+    confirmBtn.classList.remove('btn-success');
+    confirmBtn.classList.add('btn-secondary'); // Change style to indicate disabled state
+
+    // Show loading spinner and update message
+    statusArea.style.display = 'block';
+    statusMessage.textContent = 'Processing transaction, please wait...';
+
+    setTimeout(() => {
+        statusMessage.textContent = 'Payment Confirmed!';
+        // Hide spinner (assuming it's part of statusArea or can be hidden via CSS)
+        statusArea.querySelector('.loading-spinner').style.display = 'none';
+
+        // Optionally, change button text or enable for a "View Transaction" action
+        confirmBtn.textContent = 'Confirmed!';
+        confirmBtn.classList.remove('btn-secondary');
+        confirmBtn.classList.add('btn-success');
+        // You might want to keep it disabled or change its action
+        // confirmBtn.disabled = false; // Enable if you want to allow further action
+
+        // Auto-close modal after a short delay to show confirmation message
+        setTimeout(() => {
+            closeModal();
+        }, 2000); // Close modal 2 seconds after confirmation
+    }, 30000); // 30000 milliseconds = 30 seconds for auto-confirmation
+}
+
+function resetPaymentModal() {
+    const confirmBtn = document.getElementById('confirmPaymentBtn');
+    const statusArea = document.getElementById('paymentStatusArea');
+    const statusMessage = document.getElementById('paymentStatusMessage');
+
+    // Reset button state
+    confirmBtn.disabled = false;
+    confirmBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> I\'ve Sent The SOL';
+    confirmBtn.classList.remove('btn-secondary');
+    confirmBtn.classList.add('btn-success');
+
+    // Hide status area and clear message
+    statusArea.style.display = 'none';
+    statusMessage.textContent = '';
+    statusArea.querySelector('.loading-spinner').style.display = 'block'; // Ensure spinner is visible for next use
+}
+
+// Close modal when clicking outside
+document.getElementById('paymentModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeModal();
+    }
+});
+
+// Form validation
+document.getElementById('tokenAddress').addEventListener('input', function(e) {
+    const value = e.target.value;
+    // Basic Solana address validation (should be 32-44 characters)
+    if (value.length > 0 && (value.length < 32 || value.length > 44)) {
+        e.target.style.borderColor = '#ef4444';
+    } else {
+        e.target.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+    }
+});
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    // Set initial carousel state
+    showImage(1);
+
+    // Add smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+
+
+    </script>
+     <script src="script.js"></script>
+  </body>
+</html>
+
