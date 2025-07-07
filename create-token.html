@@ -58,6 +58,7 @@
                                 <input type="text" id="tokenSymbol" name="tokenSymbol" placeholder="e.g., AMC" maxlength="8" required>
                             </div>
                         </div>
+                    
                         <div class="form-group">
                             <label for="tokenImage">Token Image (PNG or JPG, Max 5MB)</label>
                             <div class="image-upload-box" id="imageUploadBox">
@@ -74,10 +75,39 @@
                         </div>
                     </div>
 
-                    <!-- Step 2: Configuration -->
-                    <div class="form-step" data-step="2">
-                        <div class="form-grid"> <div class="form-group"> <label for="tokenDecimals">Decimals</label> <input type="number" id="tokenDecimals" name="tokenDecimals" placeholder="e.g., 9 (for meme coins)" value="9" min="0" max="18" required> </div> <div class="form-group"> <label for="tokenSupply">Total Supply</label> <input type="number" id="tokenSupply" name="tokenSupply" placeholder="e.g., 1,000,000,000" required> </div> </div> <div class="form-group"> <label for="tokenDescription">Description (Optional)</label> <textarea id="tokenDescription" name="tokenDescription" rows="4" placeholder="Tell us about your awesome token..."></textarea> </div> <div class="form-buttons"> <button type="button" class="btn btn-secondary prev-step"><i data-feather="arrow-left"></i> Previous</button> <button type="button" class="btn btn-primary next-step">Next <i data-feather="arrow-right"></i></button> </div>
-                    </div>
+                                   <!-- Step 2: Configuration -->
+                                           <div class="form-step" data-step="2">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="tokenDecimals">Decimals</label>
+                                        <input type="number" id="tokenDecimals" name="tokenDecimals" placeholder="e.g., 9 (for meme coins)" value="9" min="0" max="18" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tokenSupply">Total Supply</label>
+                                        <input type="number" id="tokenSupply" name="tokenSupply" class="form-control" placeholder="e.g., 1,000,000,000" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tokenWebsite">Website</label>
+                                        <input type="text" id="tokenWebsite" name="tokenWebsite" class="form-control" placeholder="e.g., https://example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tokenTwitter">Twitter Link</label>
+                                        <input type="text" id="tokenTwitter" name="tokenTwitter" class="form-control" placeholder="e.g., https://twitter.com/example">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tokenTelegram">Telegram Link</label>
+                                        <input type="text" id="tokenTelegram" name="tokenTelegram" class="form-control" placeholder="e.g., https://t.me/example">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tokenDescription">Description (Optional)</label>
+                                    <textarea id="tokenDescription" name="tokenDescription" rows="4" class="form-control" placeholder="Tell us about your awesome token..."></textarea>
+                                </div>
+                                <div class="form-buttons">
+                                    <button type="button" class="btn btn-secondary prev-step"><i data-feather="arrow-left"></i> Previous</button>
+                                    <button type="button" class="btn btn-primary next-step">Next <i data-feather="arrow-right"></i></button>
+                                </div>
+                            </div>
 
                     <!-- Step 3: Review & Mint -->
                     <div class="form-step" data-step="3">
@@ -87,9 +117,15 @@
                             <p><strong>Symbol:</strong> <span id="reviewSymbol"></span></p>
                             <p><strong>Decimals:</strong> <span id="reviewDecimals"></span></p>
                             <p><strong>Supply:</strong> <span id="reviewSupply"></span></p>
+                                               <!-- Newly added fields -->
+        <p><strong>Website:</strong> <span id="reviewWebsite"></span></p><br>
+        <p><strong>Twitter Link:</strong> <span id="reviewTwitter"></span></p><br>
+
+        <p><strong>Telegram Link:</strong> <span id="reviewTelegram"></span></p><br>
                             <div class="full-width review-image-container"><strong>Image:</strong> <img id="reviewImage" src="#" alt="Review Image" style="display:none;"/></div>
                             <p class="full-width review-description-container"><strong>Description:</strong> <span id="reviewDescription"></span></p>
                             
+         
                             <p class="full-width review-advanced-options-header">Advanced Options Selected:</p>
                             <p><i data-feather="unlock"></i> Revoke Freeze: <span id="reviewRevokeFreeze">Yes</span></p>
                             <p><i data-feather="unlock"></i> Revoke Mint: <span id="reviewRevokeMint">Yes</span></p>
@@ -123,6 +159,7 @@
                                     <button type="button" class="btn btn-primary btn-sm revoke-select-btn">Selected</button>
                                 </div>
                             </div>
+                           
                         </div>
                         <!-- UPDATED INITIAL DISPLAY COST HERE (JS will update it dynamically based on selections) -->
                         <p class="cost-info">Creation Cost: <span class="highlight" id="totalMintCost">0.4 SOL</span></p> 
@@ -146,7 +183,7 @@
     <div id="paymentModal" class="modal">
         <div class="modal-content"> <span class="close-button" id="paymentModalCloseBtn">×</span> <h3 id="paymentModalTitle"><i data-feather="shield"></i> Complete Payment</h3> <p id="modalInfoText">To proceed, please send exactly <strong id="paymentAmount" class="highlight">0.1 SOL</strong> to the following Solana address:</p> <div class="wallet-address-box"> <span id="paymentWalletAddress">YOUR_WALLET_ADDRESS_HERE_PLACEHOLDER</span> <button id="copyAddressButton" title="Copy Address"><i data-feather="copy"></i></button> </div> <p class="small-text">Ensure you send the exact amount from a Solana wallet. Transactions are non-refundable.</p> <div class="modal-actions"> <button id="cancelPaymentButton" class="btn btn-danger">Cancel</button> <button id="confirmPaymentButton" class="btn btn-success"><i data-feather="check-circle"></i> I've Sent The SOL</button> </div> <div id="paymentStatus"></div> </div>
     </div>
-    
+        <script src="create-token.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
