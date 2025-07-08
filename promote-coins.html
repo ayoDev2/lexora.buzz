@@ -609,20 +609,30 @@
         background: #dc2626;
       }
        /* Loading Spinner for Payment Confirmation */
-.loading-spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-top: 4px solid var(--accent-color); /* Use accent color for the spinner */
+
+#confirmationSpinner {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(0, 0, 0, 0.3);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto; /* Center the spinner */
+    border-top-color: #007bff;
+    animation: spin 1s ease-in-out infinite;
+    margin-left: 10px;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
+
+button:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
 
       /* Responsive Design */
       @media (max-width: 768px) {
@@ -996,30 +1006,19 @@
         </div>
         <div class="modal-actions">
             <button class="btn btn-danger" onclick="closeModal()">Cancel</button>
-            <button class="btn btn-success" id="confirmPaymentBtn" onclick="confirmPayment()">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                I've Sent The SOL
-            </button>
+                        <div class="payment-confirmation">
+                <button id="confirmPaymentButton" class="btn btn-primary" disabled>
+                    Confirm Payment
+                    <span id="confirmationSpinner" style="display: inline-block;"></span>
+                </button>
+            </div>
         </div>
 
       </div>
     </div>
 
     <script>
-      // Global variables
+      // Global variables 
       let currentImageIndex = 1;
       let selectedServiceName = "";
       let selectedServicePrice = "";
@@ -1092,14 +1091,30 @@
           });
       }
 
-      function confirmPayment() {
-        alert(`${selectedServiceName} service purchased successfully!`);
-        closeModal();
-        setTimeout(function() {
-  // Code to confirm the payment goes here
-}, 30000); // 30000 milliseconds = 30 seconds
-           }
-
+        /* Add more styles as needed */
+      document.addEventListener("DOMContentLoaded", () => {
+          const confirmButton = document.getElementById("confirmPaymentButton");
+          const spinner = document.getElementById("confirmationSpinner");
+      
+          // Disable the button initially
+          confirmButton.disabled = true;
+      
+          // Start the 30-second delay
+          setTimeout(() => {
+              confirmButton.disabled = false; // Enable the button after 30 seconds
+              confirmButton.textContent = "Click to Confirm Payment"; // Update button text
+              spinner.style.display = "none"; // Hide the spinner
+          }, 30000);
+      
+          // Add event listener for the confirmation button
+          confirmButton.addEventListener("click", () => {
+              if (!confirmButton.disabled) {
+                  alert("Payment confirmed successfully!");
+                  // Add logic for successful transaction here
+              }
+          });
+      });
+      
       // Close modal when clicking outside
       document
         .getElementById("paymentModal")
@@ -1149,7 +1164,7 @@
       });
     </script>
      <script src="script.js"></script>
-  </body>
+  </body> 
 </html>
 
 <!-- Auto-Confirm Payment Section -->
