@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (e) {
         console.error("Error replacing Feather icons:", e);
     }
-
+    
     const CREATED_TOKENS_STORAGE_KEY = 'aethermintUserTokens';
     const USER_LIQUIDITY_POOLS_KEY = 'aethermintUserLiquidityPools';
     let currentPaymentServiceContext = 'default'; 
@@ -638,7 +638,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img src="${imgSrc}" alt="${lp.tokenName}" class="lp-token-image" onerror="this.onerror=null;this.src='${placeholderImg}';">
                     <h4 class="lp-token-name">${lp.tokenName} <span>(${lp.tokenSymbol})</span></h4>
                     <p class="lp-amounts"><strong>${lp.baseAmount} ${lp.tokenSymbol}</strong> / <strong>${lp.quoteAmount} ${lp.quoteSymbol}</strong></p>
-                    <p class="lp-solana-address">Pool Address: <span class="address-value" id="lp-address-${lp.id}">${lp.solanaAddress || 'N/A'}</span> <button class="btn-icon-sm copy-lp-address-btn" data-address-id="lp-address-${lp.id}" title="Copy Pool Address"><i data-feather="copy"></i></button></p>
+                    <p class="lp-solana-address">Contract Address: <span class="address-value" id="lp-address-${lp.id}">${lp.solanaAddress || 'N/A'}</span> <button class="btn-icon-sm copy-lp-address-btn" data-address-id="lp-address-${lp.id}" title="Copy Pool Address"><i data-feather="copy"></i></button></p>
                     <p class="lp-creation-date">Created: ${new Date(lp.creationDate).toLocaleString()}</p>
                     <button class="btn btn-danger btn-sm lp-remove-button" data-lpid="${lp.id}" data-lpname="${lp.tokenName}">
                         <i data-feather="minus-circle"></i> Remove Liquidity
