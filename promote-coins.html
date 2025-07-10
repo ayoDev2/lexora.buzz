@@ -1117,12 +1117,12 @@ button:disabled {
       
       // Close modal when clicking outside
       document
-        .getElementById("paymentModal")
-        .addEventListener("click", function (e) {
-          if (e.target === this) {
-            closeModal();
-          }
-        });
+    .getElementById("paymentModal")
+    .addEventListener("click", function (e) {
+        if (e.target === this) {
+            location.reload(); // Reload the page when clicking outside the modal
+        }
+    });
 
       // Close modal with Escape key
       document.addEventListener("keydown", function (e) {
