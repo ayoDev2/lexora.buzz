@@ -6,9 +6,9 @@
     --secondary-text: #e0e0e0;     /* Slightly off-white for less critical text */
     --tertiary-text: #b3b3b3;      /* For subtext, placeholders */
     
-    --accent-color: #f2cdcd;       /* Flamingo */
+    --accent-color: #adf043;       /* Flamingo */
     --accent-color-rgb: 242, 205, 205;
-    --accent-color-darker: #e0b8b8; /* For hover states or subtle variations */
+    --accent-color-darker: #20e631; /* For hover states or subtle variations */
     --accent-color-glow: rgba(242, 205, 205, 0.4); /* Glow effect for accent */
 
     --border-color: #333333;       /* Dark grey for subtle borders */
