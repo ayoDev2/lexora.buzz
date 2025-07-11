@@ -946,7 +946,7 @@ button:disabled {
     <!-- Payment Modal -->
     <div id="paymentModal" class="modal">
       <div class="modal-content">
-        <button class="close-button" onclick="closeModal()">×</button>
+        <button class="close-button" onclick="location.reload()">×</button>
         <h3 class="modal-title">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -1124,12 +1124,12 @@ button:disabled {
         }
     });
 
-      // Close modal with Escape key
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-          closeModal();
-        }
-      });
+     // Reload page with Escape key
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+        location.reload(); // Reload the page when Escape key is pressed
+    }
+});
 
       // Form validation
       document
