@@ -744,7 +744,9 @@ footer .disclaimer { font-size: 0.9em; margin-top: 10px; color: var(--tertiary-t
     border-color: var(--accent-color);
     box-shadow: 0 3px 8px rgba(0,0,0,0.25), 0 0 10px var(--accent-color-glow);
 }
-
+.line-through {
+    text-decoration-line: line-through;
+}
 /* User Liquidity Pools List */
 .pools-list.card-style { padding: 18px; min-height: 100px; }
 .liquidity-pool-item {
