@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         } else {
                                             paymentStatusEl.textContent = `Payment confirmed! ${newToken.name} (${newToken.symbol}) was already minted or is a duplicate.`;
                                         }
-                                    }
+                                    } 0.4
                                 }
                             } else if (currentPaymentServiceContext === 'createLP') {
                                 const lpTokenSelect = document.getElementById('lpTokenSelect');
@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Token Creation Form ---
     let showStep; 
-    let currentTotalMintCost = 0.4; 
+    let currentTotalMintCost = 0.3; 
     let step3Elements = {}; 
     let stepperStepsElements = []; 
     let formElement; 
@@ -410,19 +410,24 @@ document.addEventListener('DOMContentLoaded', function() {
         let cost = 0.1; 
         let revokeFreezeSelected = false;
         let revokeMintSelected = false;
-        let revokeUpdateSelected = false;
-
-        if (step3Elements.revokeFreezeCard && step3Elements.revokeFreezeCard.dataset.selected === 'true') { cost += 0.1; revokeFreezeSelected = true; }
-        if (step3Elements.revokeMintCard && step3Elements.revokeMintCard.dataset.selected === 'true') { cost += 0.1; revokeMintSelected = true; }
-        if (step3Elements.revokeUpdateCard && step3Elements.revokeUpdateCard.dataset.selected === 'true') { cost += 0.1; revokeUpdateSelected = true; }
-        
+        if (step3Elements.revokeFreezeCard && step3Elements.revokeFreezeCard.dataset.selected === 'true') {
+            cost += 0.1; 
+            revokeFreezeSelected = true; 
+        }
+        if (step3Elements.revokeMintCard && step3Elements.revokeMintCard.dataset.selected === 'true') {
+            cost += 0.1; // Change this to 0.1 to account for the merged revoke update cost
+            revokeMintSelected = true; 
+        }
         currentTotalMintCost = parseFloat(cost.toFixed(1));
-        
-        if (step3Elements.totalMintCostEl) step3Elements.totalMintCostEl.textContent = `${formatSolAmount(currentTotalMintCost)} SOL`;
-        
-        if (step3Elements.reviewRevokeFreezeEl) step3Elements.reviewRevokeFreezeEl.textContent = revokeFreezeSelected ? 'Yes' : 'No';
-        if (step3Elements.reviewRevokeMintEl) step3Elements.reviewRevokeMintEl.textContent = revokeMintSelected ? 'Yes' : 'No';
-        if (step3Elements.reviewRevokeUpdateEl) step3Elements.reviewRevokeUpdateEl.textContent = revokeUpdateSelected ? 'Yes' : 'No';
+        if (step3Elements.totalMintCostEl) {
+            step3Elements.totalMintCostEl.textContent = `${formatSolAmount(currentTotalMintCost)} SOL`;
+        }
+        if (step3Elements.reviewRevokeFreezeEl) {
+            step3Elements.reviewRevokeFreezeEl.textContent = revokeFreezeSelected ? 'Yes' : 'No';
+        }
+        if (step3Elements.reviewRevokeMintEl) {
+            step3Elements.reviewRevokeMintEl.textContent = revokeMintSelected ? 'Yes' : 'No'; // This now includes revoke update
+        }
         
         feather.replace(); 
     }
@@ -479,18 +484,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const prevStepButtons = formElement.querySelectorAll('.prev-step');
         stepperStepsElements = Array.from(document.querySelectorAll('#token-creator .stepper .step'));
         let imageUploadedFlag = false; 
-
         step3Elements.formStep = formElement.querySelector('.form-step[data-step="3"]');
         if (step3Elements.formStep) {
             step3Elements.revokeFreezeCard = step3Elements.formStep.querySelector('#revokeFreezeCard');
             step3Elements.revokeMintCard = step3Elements.formStep.querySelector('#revokeMintCard');
-            step3Elements.revokeUpdateCard = step3Elements.formStep.querySelector('#revokeUpdateCard');
+            // Remove the revoke update button
+            // step3Elements.revokeUpdateCard = step3Elements.formStep.querySelector('#revokeUpdateCard'); // Remove this line
             step3Elements.reviewRevokeFreezeEl = step3Elements.formStep.querySelector('#reviewRevokeFreeze');
             step3Elements.reviewRevokeMintEl = step3Elements.formStep.querySelector('#reviewRevokeMint');
-            step3Elements.reviewRevokeUpdateEl = step3Elements.formStep.querySelector('#reviewRevokeUpdate');
+            // Remove the review for revoke update
+            // step3Elements.reviewRevokeUpdateEl = step3Elements.formStep.querySelector('#reviewRevokeUpdate'); // Remove this line
             step3Elements.totalMintCostEl = step3Elements.formStep.querySelector('#totalMintCost');
             
-            [step3Elements.revokeFreezeCard, step3Elements.revokeMintCard, step3Elements.revokeUpdateCard].forEach(card => {
+            [step3Elements.revokeFreezeCard, step3Elements.revokeMintCard].forEach(card => { // Update this line
                 if (card) {
                     const button = card.querySelector('.revoke-select-btn');
                     const toggleSelection = (cardElement, buttonElement) => {
@@ -504,11 +510,22 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         updateTotalMintCostAndReview();
                     };
-                    card.addEventListener('click', function(event) { if (!event.target.closest('.revoke-select-btn') && !event.target.closest('.option-cost')) toggleSelection(this, button); });
-                    if (button) button.addEventListener('click', function(e) { e.stopPropagation(); toggleSelection(this.closest('.revoke-option-card'), this); });
+                    card.addEventListener('click', function(event) { 
+                        if (!event.target.closest('.revoke-select-btn') && !event.target.closest('.option-cost')) {
+                            toggleSelection(this, button); 
+                        }
+                    });
+                    if (button) {
+                        button.addEventListener('click', function(e) { 
+                            e.stopPropagation(); 
+                            toggleSelection(this.closest('.revoke-option-card'), this); 
+                        });
+                    }
                 }
             });
         }
+        // ... rest of the initialization code remains unchanged
+    
         
         const step1Form = formElement.querySelector('.form-step[data-step="1"]');
         if(step1Form) {
