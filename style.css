@@ -6,16 +6,16 @@
     --secondary-text: #e0e0e0;     /* Slightly off-white for less critical text */
     --tertiary-text: #b3b3b3;      /* For subtext, placeholders */
     
-    --accent-color: #adf043;       /* Flamingo */
+    --accent-color: #43cdf0;       /* Flamingo */
     --accent-color-rgb: 242, 205, 205;
-    --accent-color-darker: #20e631; /* For hover states or subtle variations */
-    --accent-color-glow: rgba(242, 205, 205, 0.4); /* Glow effect for accent */
+    --accent-color-darker: #20a7e6; /* For hover states or subtle variations */
+    --accent-color-glow: rgba(23, 204, 174, 0.4); /* Glow effect for accent */
 
     --border-color: #333333;       /* Dark grey for subtle borders */
     --border-color-light: #555555; /* Lighter grey for active/hover borders */
     --card-bg: #0d0d0d;            /* Very dark grey for cards, slightly off black */
     --card-bg-rgb: 13, 13, 13;
-    --hover-bg: #1a1a1a;           /* For hover states on dark elements */
+    --hover-bg: #20a7e6;           /* For hover states on dark elements */
 
     /* Font & Rounding (kept from previous 'alive' version, adjust if needed) */
     --font-family: 'Poppins', sans-serif;
